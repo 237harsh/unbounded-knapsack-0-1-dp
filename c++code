@@ -1,0 +1,23 @@
+int fun(int id, int w, int val[], int wt[], vector<vector<int>>&dp)
+{
+    
+    if(id==0)
+    {
+        if(wt[0]<=w)return w/wt[0]*val[0];
+        else
+        return 0;
+    }
+    if(dp[id][w]!=-1)return dp[id][w];
+    int ntake=0+fun(id-1,w,val,wt,dp);
+    int take=INT_MIN;
+    if(wt[id]<=w)
+    take=val[id]+fun(id,w-wt[id],val,wt,dp);
+    return dp[id][w]=max(take,ntake);
+    
+}
+    int knapSack(int n, int w, int val[], int wt[])
+    {
+       vector<vector<int>>dp(n,vector<int>(w+1,-1));
+       return fun(n-1,w,val,wt,dp);
+    }
+};
